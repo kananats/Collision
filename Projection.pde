@@ -11,11 +11,11 @@ class Projection {
   }
 
   Projection(Circle c, PVector axis, float angle) {
-    for (int i=0;i<100;i++) {
+    for (int i=0;i<4;i++) {
       float temp=new PVector(c.position.x+c.radius*cos(angle), c.position.y+c.radius*sin(angle)).dot(axis);
       if (i==0||temp<min)min=temp;
       if (i==0||temp>max)max=temp;
-      angle+=radians(360.0/100.0);
+      angle+=radians(90);
     }
   }
 

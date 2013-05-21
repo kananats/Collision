@@ -13,21 +13,11 @@ class MTV {
     PVector voronoi=r.voronoi(c.position);
 
     if (voronoi!=null) {
-      //PVector voronoi_axis=new PVector(voronoi.y-c.position.y, c.position.x-voronoi.x);
       PVector voronoi_axis=new PVector(c.position.x-voronoi.x,c.position.y-voronoi.y);
       voronoi_axis.normalize();
-      
-      //temp=new Projection(voronoi_axis, r.vertex).overlap(new Projection(c, voronoi_axis, -atan2(c.position.y-voronoi.y, c.position.x-voronoi.x)));
-      
-      Projection p1=new Projection(voronoi_axis, r.vertex);
-      
-      println("p1: "+p1.min+","+p1.max);
-      
-      Projection p2=new Projection(c,voronoi_axis, 0);
-      
-      println("p2: "+p2.min+","+p2.max);
 
-      
+      Projection p1=new Projection(voronoi_axis, r.vertex);
+      Projection p2=new Projection(c,voronoi_axis, voronoi_axis.heading());
       temp=p1.overlap(p2);
       println("ok: "+temp);
       if (temp<0){

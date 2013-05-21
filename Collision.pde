@@ -18,14 +18,7 @@ void draw(){
   r.updateVertex();
   r.updateAxis();
   
-  //for(int i=0;i<r.axis.length;i++)println(i+": "+r.axis[i].x+","+r.axis[i].y);
-  
-  strokeWeight(10);
-  PVector voronoi=r.voronoi(c.position);
-  if(voronoi!=null)point(voronoi.x,voronoi.y);
-  point(c.position.x,c.position.y);
-  
-  MTV mtv=new MTV(c,r);
+  println(colliding(c,r));
   
   strokeWeight(1);
   c.display();

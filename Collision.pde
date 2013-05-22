@@ -1,11 +1,18 @@
 int state;
 
-Live1 live1;
+Page0 page0;
+Page0 page1;
+
+Draggable d;
 
 void setup() {
   size(800, 600, P2D);
   state=0;
-  live1=new Live1();
+
+  d=new Draggable(100, 100, 50);
+
+  page0=new Page0(8);
+  page1=new Page0(100);
 }
 
 void draw() {
@@ -13,13 +20,15 @@ void draw() {
   fill(0, 0);
   stroke(0);
 
+  d.drag();
+
   switch(state) {
   case 0:
-    live1.d.drag();
-    live1.display();
+    page0.display();
     break;
 
   case 1:
+    page1.display();
     break;
 
   case 2:
@@ -31,36 +40,26 @@ void draw() {
 }
 
 void mousePressed() {
-  switch(state) {
-  case 0:
-    live1.d.startDrag();
-    break;
-    
-  case 1:
-    break;
-
-  case 2:
-    break;
-
-  default:
-    break;
-  }
+  d.startDrag();
 }
 
 void mouseReleased() {
-  switch(state) {
-  case 0:
-    live1.d.stopDrag();
-    break;
-    
-  case 1:
-    break;
+  d.stopDrag();
+}
 
-  case 2:
-    break;
-
-  default:
-    break;
+void keyReleased() {
+  if (key == CODED) {
+    if (keyCode == UP) {
+      page0.refresh();
+      page1.refresh();
+    } else if (keyCode == DOWN) {
+      d.position.x=100;
+      d.position.y=100;
+    } else if (keyCode == LEFT) {
+      state--;
+    } else if (keyCode == RIGHT) {
+      state++;
+    }
   }
 }
 

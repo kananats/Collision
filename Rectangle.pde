@@ -75,8 +75,5 @@ class Rectangle {
     popMatrix();
     rectMode(CORNER);
   }
-
-  void move() {
-  }
 }
 

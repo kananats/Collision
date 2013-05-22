@@ -10,6 +10,7 @@ boolean colliding(Rectangle r, Circle c) {
 boolean colliding(Circle c, Rectangle r) {
   float temp;
   PVector voronoi=r.voronoi(c.position);
+  r.update();
 
   if (voronoi!=null) {
     PVector voronoi_axis=new PVector(c.position.x-voronoi.x, c.position.y-voronoi.y);
@@ -31,6 +32,8 @@ boolean colliding(Circle c, Rectangle r) {
 }
 
 boolean colliding(Rectangle r1, Rectangle r2) {
+  r1.update();
+  r2.update();
   float temp;
   for (int i=0;i<r1.axis.length;i++) {
     Projection p1=new Projection(r1.axis[i], r1.vertex);

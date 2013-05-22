@@ -1,3 +1,8 @@
+boolean colliding(Circle c1, Circle c2) {
+  if (dist(c1.position.x, c1.position.y, c2.position.x, c2.position.y)<=c1.radius+c2.radius)return true;
+  return false;
+}
+
 boolean colliding(Rectangle r, Circle c) {
   return colliding(c, r);
 }

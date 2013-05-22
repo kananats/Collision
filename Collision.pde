@@ -1,40 +1,66 @@
-Circle c;
-Rectangle[] r;
+int state;
 
-void setup(){
-  size(800,600,P2D);
-  
-  c=new Circle(100,100,30);
-  r=new Rectangle[10];
-  for(int i=0;i<r.length;i++){
-    r[i]=new Rectangle(random(0,800),random(0,600),random(10,400),random(10,300));
-    r[i].angle=random(0,radians(180));
-  }
+Live1 live1;
+
+void setup() {
+  size(800, 600, P2D);
+  state=0;
+  live1=new Live1();
 }
 
-void draw(){
+void draw() {
   background(255);
-  fill(0,0);
+  fill(0, 0);
   stroke(0);
-  
-  c.drag();
-  
-  for(int i=0;i<r.length;i++)r[i].update();
 
-  c.display();
-  for(int i=0;i<r.length;i++){
-    stroke(0);
-    if(colliding(c,r[i]))stroke(255,0,0);
-    r[i].display();
+  switch(state) {
+  case 0:
+    live1.d.drag();
+    live1.display();
+    break;
+
+  case 1:
+    break;
+
+  case 2:
+    break;
+
+  default:
+    break;
   }
-  
-  
 }
 
 void mousePressed() {
-  c.startDrag();
+  switch(state) {
+  case 0:
+    live1.d.startDrag();
+    break;
+    
+  case 1:
+    break;
+
+  case 2:
+    break;
+
+  default:
+    break;
+  }
 }
 
 void mouseReleased() {
-  c.stopDrag();
+  switch(state) {
+  case 0:
+    live1.d.stopDrag();
+    break;
+    
+  case 1:
+    break;
+
+  case 2:
+    break;
+
+  default:
+    break;
+  }
 }
+

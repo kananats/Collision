@@ -25,7 +25,7 @@ class Rectangle{
     }
   }
   
-  void updateVertex(){
+  void update(){
     PVector dx=new PVector(w*0.5, 0);
     dx.rotate(angle);
     PVector dy=new PVector(0, h*0.5);
@@ -36,9 +36,6 @@ class Rectangle{
       vertex[i].y=position.y+(i==0||i==3? 1:-1)*dx.y+(i==2||i==3? 1:-1)*dy.y;
     }
     
-  }
-  
-  void updateAxis(){
     for (int i=0;i<4;i++) {
       axis[i].x=vertex[(i+1)%4].y-vertex[i].y;
       axis[i].y=vertex[i].x-vertex[(i+1)%4].x;

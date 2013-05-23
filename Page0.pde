@@ -1,5 +1,5 @@
 class Page0 {
-  
+
   Rectangle[] r;
   Circle[] c;
 
@@ -7,7 +7,7 @@ class Page0 {
 
     r=new Rectangle[quantity];
     for (int i=0;i<r.length;i++) 
-      r[i]=new Rectangle(random(0, 800), random(0, 600), random(10, 400), random(10, 300), random(0, radians(180)));
+      r[i]=new Rectangle(random(0, 800), random(0, 600), random(10, 400), random(10, 300));
 
     c=new Circle[quantity];
     for (int i=0;i<c.length;i++)

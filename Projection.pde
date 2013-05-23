@@ -10,7 +10,7 @@ class Projection {
     }
   }
 
-  Projection(Circle c, PVector axis, float angle) {
+  Projection(PVector axis, Circle c, float angle) {
     for (int i=0;i<4;i++) {
       float temp=new PVector(c.position.x+c.radius*cos(angle), c.position.y+c.radius*sin(angle)).dot(axis);
       if (i==0||temp<min)min=temp;

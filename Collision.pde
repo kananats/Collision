@@ -2,17 +2,19 @@ int state;
 
 Page0 page0;
 Page0 page1;
+Page1 page2;
 
 Draggable d;
 
 void setup() {
   size(800, 600, P2D);
-  state=0;
+  state=2;
 
   d=new Draggable(100, 100, 50);
 
   page0=new Page0(8);
   page1=new Page0(100);
+  page2=new Page1();
 }
 
 void draw() {
@@ -32,6 +34,7 @@ void draw() {
     break;
 
   case 2:
+    page2.display();
     break;
 
   default:

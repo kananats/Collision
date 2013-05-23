@@ -4,9 +4,9 @@ class Page1{
   
   Page1(){
     c=new Circle(100,300,30);
-    c.velocity.x=1;
-    c.velocity.y=0;
-    r=new Rectangle(400,300,300,100);
+    c.velocity.x=5;
+    c.velocity.y=-1.3;
+    r=new Rectangle(400,300,300,300);
     r.angle=1;
   }
   
@@ -19,5 +19,7 @@ class Page1{
     r.display();
     
     r.intersect(c);
+    if(c.position.x+c.radius>width||c.position.x-c.radius<0)c.velocity.x*=-1;
+    if(c.position.y+c.radius>height||c.position.y-c.radius<0)c.velocity.y*=-1;
   }
 }

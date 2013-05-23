@@ -8,6 +8,8 @@ class Rectangle {
   float w, h;
   float angle;
 
+  int count;
+
   Rectangle(float x, float y, float w, float h) {
 
     position=new PVector(x, y);
@@ -31,6 +33,8 @@ class Rectangle {
       axis[i]=new PVector();
     }
 
+    count=0;
+
     update();
   }
 
@@ -46,8 +50,8 @@ class Rectangle {
     }
 
     for (int i=0;i<4;i++) {
-      axis[i].x=vertex[(i+1)%4].y-vertex[i].y;
-      axis[i].y=vertex[i].x-vertex[(i+1)%4].x;
+      axis[i].x=(vertex[i].x+vertex[(i+1)%4].x)/2-position.x;
+      axis[i].y=(vertex[i].y+vertex[(i+1)%4].y)/2-position.y;
       axis[i].normalize();
     }
   }
@@ -63,20 +67,25 @@ class Rectangle {
   }
 
   void intersect(Circle circle) {
+    println(count);
+    if (count<0) {
+      count++;
+      return;
+    }
     if (!colliding(this, circle))return;
     update();
 
     if (!isOutside(vertex[3], vertex[0], circle.position)&&!isOutside(vertex[1], vertex[2], circle.position)) {
       if (isOutside(vertex[0], vertex[1], circle.position)) {
-
         float a=(vertex[1].y-vertex[0].y)/(vertex[1].x-vertex[0].x);
         float b=-1;
         float c=-(vertex[1].y-vertex[0].y)*vertex[0].x/(vertex[1].x-vertex[0].x)+vertex[0].y;
         if (abs(a*circle.position.x+b*circle.position.y+c)/sqrt(a*a+b*b)<circle.radius) {
-          PVector reflec=getNorm(vertex[0], vertex[1]);
-          reflec.mult(circle.velocity.dot(getNorm(vertex[0], vertex[1])));
+          PVector reflec=new PVector(axis[0].x, axis[0].y);
+          reflec.mult(circle.velocity.dot(reflec));
           circle.velocity.sub(reflec);
           circle.velocity.sub(reflec);
+          count=-30;
           return;
         }
       } 
@@ -85,47 +94,43 @@ class Rectangle {
         float b=-1;
         float c=-(vertex[3].y-vertex[2].y)*vertex[2].x/(vertex[3].x-vertex[2].x)+vertex[2].y;
         if (abs(a*circle.position.x+b*circle.position.y+c)/sqrt(a*a+b*b)<circle.radius) {
-          PVector reflec=getNorm(vertex[2], vertex[3]);
-          reflec.mult(circle.velocity.dot(getNorm(vertex[2], vertex[3])));
+          PVector reflec=new PVector(axis[2].x, axis[2].y);
+          reflec.mult(circle.velocity.dot(reflec));
           circle.velocity.sub(reflec);
           circle.velocity.sub(reflec);
+          count=-20;
           return;
         }
       }
     } 
-
     if (!isOutside(vertex[0], vertex[1], circle.position)&&!isOutside(vertex[2], vertex[3], circle.position)) {
       if (isOutside(vertex[1], vertex[2], circle.position)) {
         float a=(vertex[2].y-vertex[1].y)/(vertex[2].x-vertex[1].x);
         float b=-1;
         float c=-(vertex[2].y-vertex[1].y)*vertex[1].x/(vertex[2].x-vertex[1].x)+vertex[1].y;
         if (abs(a*circle.position.x+b*circle.position.y+c)/sqrt(a*a+b*b)<circle.radius) {
-          PVector reflec=getNorm(vertex[1], vertex[2]);
-          reflec.mult(circle.velocity.dot(getNorm(vertex[1], vertex[2])));
+          PVector reflec=new PVector(axis[1].x, axis[1].y);
+          reflec.mult(circle.velocity.dot(reflec));
           circle.velocity.sub(reflec);
           circle.velocity.sub(reflec);
+          count=-20;
           return;
         }
       } 
       if (isOutside(vertex[3], vertex[0], circle.position)) {
-        float a=(vertex[3].y-vertex[2].y)/(vertex[3].y-vertex[2].y);
+        float a=(vertex[0].y-vertex[3].y)/(vertex[0].x-vertex[3].x);
         float b=-1;
-        float c=-(vertex[3].y-vertex[2].y)*vertex[2].x/(vertex[3].x-vertex[2].x)+vertex[2].y;
+        float c=-(vertex[0].y-vertex[3].y)*vertex[3].x/(vertex[0].x-vertex[3].x)+vertex[3].y;
         if (abs(a*circle.position.x+b*circle.position.y+c)/sqrt(a*a+b*b)<circle.radius) {
-          PVector reflec=getNorm(vertex[2], vertex[3]);
-          reflec.mult(circle.velocity.dot(getNorm(vertex[2], vertex[3])));
+          PVector reflec=new PVector(axis[3].x, axis[3].y);
+          reflec.mult(circle.velocity.dot(reflec));
           circle.velocity.sub(reflec);
           circle.velocity.sub(reflec);
+          count=-20;
           return;
         }
       }
     }
-  }
-
-  private PVector getNorm(PVector v0, PVector v1) {
-    PVector p=new PVector((v0.x+v1.x)/2-position.x, (v0.y+v1.y)/2-position.y);
-    p.normalize();
-    return p;
   }
 
   private boolean isOutside(PVector v0, PVector v1, PVector point) {

@@ -67,7 +67,6 @@ class Rectangle {
   }
 
   void intersect(Circle circle) {
-    println(count);
     if (count<0) {
       count++;
       return;
